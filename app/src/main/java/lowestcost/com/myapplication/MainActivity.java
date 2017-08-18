@@ -74,12 +74,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //First perform the necessary validations
                 boolean isAlphaValidationPassed = performValidation();
                 if (isAlphaValidationPassed == false) {
                     //Show Error message
                     return;
                 }
 
+                //Get the input string in space separated values
                 inputString1 = input1.getText().toString().split("\\ ");
                 inputString2 = input2.getText().toString().split("\\ ");
                 inputString3 = input3.getText().toString().split("\\ ");
