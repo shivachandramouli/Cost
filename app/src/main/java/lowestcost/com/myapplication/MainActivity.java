@@ -22,6 +22,7 @@ import static android.R.attr.alpha;
 import static android.R.attr.button;
 import static android.R.attr.key;
 import static android.R.attr.max;
+import static android.R.id.input;
 import static android.R.id.list;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     String[] inputString3;
     String[] inputString4;
     String[] inputString5;
+    Utils utils;
+    Validations validations;
 
     int inputData[][];
 
@@ -56,11 +59,6 @@ public class MainActivity extends AppCompatActivity {
         output2 = (TextView)findViewById(R.id.output2);
         output3 = (TextView)findViewById(R.id.output3);
 
-        int inputData[][]= { {3, 4, 1},
-                             {6, 1, 8},
-                             {5, 9, 3},
-                             };
-
         input1 = (EditText)findViewById(R.id.input1);
         input2 = (EditText)findViewById(R.id.input2);
         input3 = (EditText)findViewById(R.id.input3);
@@ -69,11 +67,14 @@ public class MainActivity extends AppCompatActivity {
 
         getResults = (Button)findViewById(R.id.Button);
 
+        utils = new Utils();
+        validations = new Validations();
+
         getResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                boolean isAlphaValidationPassed = validateForAlphabets();
+                boolean isAlphaValidationPassed = performValidation();
                 if (isAlphaValidationPassed == false) {
                     //Show Error message
                     return;
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        int transposeMatrix[][] = transformMatrix(inputData);
+        int transposeMatrix[][] = utils.transformMatrix(inputData);
         buildDataStructure(transposeMatrix);
     }
 
@@ -180,81 +181,58 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validateForAlphabets() {
+    private boolean performValidation() {
 
         boolean validationStatus = false;
         if (input1.getText().toString().length() > 0) {
-            boolean checkIfAlpha = isAlpha(input1.getText().toString());
-            if(checkIfAlpha == true) {
+
+            if (validations.validateForAlphabets(input1.getText().toString()) == true) {
                 validationStatus = true;
             }
             else {
                 validationStatus = false;
             }
         }
-
         if (input2.getText().toString().length() > 0) {
-            boolean checkIfAlpha = isAlpha(input2.getText().toString());
-            if(checkIfAlpha == true) {
+
+            if (validations.validateForAlphabets(input2.getText().toString()) == true) {
                 validationStatus = true;
             }
             else {
                 validationStatus = false;
             }
         }
-        return validationStatus;
-    }
+        if (input3.getText().toString().length() > 0) {
 
-    public boolean isAlpha(String inputData) {
-
-        String NumberPattern = "[0-9]+";
-        String modifiedData = inputData;
-        modifiedData = modifiedData.replace(" ", "");
-        modifiedData = modifiedData.replace("-", "");
-        if (modifiedData.matches(NumberPattern)) {
-            //It is a number
-            return true;
-        }
-        else {
-            //Not a number
-            return false;
-        }
-    }
-
-    public int getMinValue(ArrayList array) {
-
-        Object obj = Collections.min(array);
-        return (int) obj;
-    }
-
-    public int getPosition(ArrayList array, int element) {
-
-        for (int i = 0;i<array.size();i++)  {
-            Object obj = array.get(i);
-
-            if ((int) obj == element) {
-                return i;
+            if (validations.validateForAlphabets(input3.getText().toString()) == true) {
+                validationStatus = true;
+            }
+            else {
+                validationStatus = false;
             }
         }
-        return -1;
-    }
+        if (input4.getText().toString().length() > 0) {
 
-    public static int[][] transformMatrix(int[][] matrix)
-    {
-        int m = matrix.length;
-        int n = matrix[0].length;
-
-        int[][] trasposedMatrix = new int[n][m];
-
-        for(int x = 0; x < n; x++)
-        {
-            for(int y = 0; y < m; y++)
-            {
-                trasposedMatrix[x][y] = matrix[y][x];
+            if (validations.validateForAlphabets(input4.getText().toString()) == true) {
+                validationStatus = true;
+            }
+            else {
+                validationStatus = false;
             }
         }
-        return trasposedMatrix;
+        if (input5.getText().toString().length() > 0) {
+
+            if (validations.validateForAlphabets(input5.getText().toString()) == true) {
+                validationStatus = true;
+            }
+            else {
+                validationStatus = false;
+            }
+        }
+
+        return  validationStatus;
     }
+
 
     private int getTotalCost() {
 
@@ -264,8 +242,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0;i<linkedHashMap.size();i++) {
 
             ArrayList arrayList = linkedHashMap.get(i);
-            int minimumValue = getMinValue(arrayList);
-            position = getPosition(arrayList, minimumValue) + 1;
+            int minimumValue = utils.getMinValue(arrayList);
+            position = utils.getPosition(arrayList, minimumValue) + 1;
             positionArray.add(position);
             totalValue = totalValue + minimumValue;
         }
