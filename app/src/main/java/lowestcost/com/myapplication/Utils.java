@@ -9,6 +9,7 @@ import java.util.Collections;
 
 public class Utils {
 
+    //Utility method for matrix transformation
     public static int[][] transformMatrix(int[][] matrix)
     {
         int m = matrix.length;
@@ -32,6 +33,7 @@ public class Utils {
         return (int) obj;
     }
 
+    //Utility method for calculating the position of an element in the matrix
     public int getPosition(ArrayList array, int element) {
 
         for (int i = 0;i<array.size();i++)  {

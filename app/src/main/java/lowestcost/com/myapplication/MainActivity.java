@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         utils = new Utils();
         validations = new Validations();
 
+        //Handle Button click for GET results
         getResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //This method takes care of setting up a 2D array
+    //The values provided by user in text field will be converted in a matrix format
     private void initialize2DArray() {
 
         int totalRows = inputString1.length;
@@ -156,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         buildDataStructure(transposeMatrix);
     }
 
+    //Builds a data structure for calculating the total cost and the path to the total cost
     public void buildDataStructure(int[][] matrix) {
 
         for(int i=0; i<matrix.length; i++) {
@@ -170,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         showOutput();
     }
 
+    //Displays the UI, shows the output such as YES, total cost and path for total cost
     public void showOutput() {
 
         output2.setText(String.valueOf(getTotalCost()));
@@ -183,6 +188,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Perform the necessary validations. In case there is a alphabet, the applications returns
+    //an error
     private boolean performValidation() {
 
         boolean validationStatus = false;
@@ -236,6 +243,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //This method is for calculating the total cost
+    //It traverses through the elements in the matrix and calculates the total cost
     private int getTotalCost() {
 
         positionArray.clear();

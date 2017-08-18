@@ -21,6 +21,7 @@ public class Validations {
         return validationStatus;
     }
 
+    //Validation for checking if the input data is an integer
     public boolean isAlpha(String inputData) {
 
         String NumberPattern = "[0-9]+";
@@ -31,9 +32,6 @@ public class Validations {
             //It is a number
             return true;
         }
-        else {
-            //Not a number
-            return false;
-        }
+        return  false;
     }
 }
